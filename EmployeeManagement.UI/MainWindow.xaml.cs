@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EmployeeManagement.BLL.Services;
 
 namespace EmployeeManagement.UI
 {
@@ -16,9 +17,20 @@ namespace EmployeeManagement.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IAdminService _adminService;
+        // (Nếu bạn cần các service khác, hãy thêm chúng ở đây)
+        // private readonly IRoomService _roomService;
+
+        // 2. Yêu cầu (Inject) service qua hàm khởi tạo
+        public MainWindow(IAdminService adminService) // <-- DI sẽ tự động "tiêm" vào đây
         {
             InitializeComponent();
+
+            // 3. Gán service được tiêm vào biến của bạn
+            _adminService = adminService;
+
+            // (Bạn cũng có thể gán các service khác)
+            // _roomService = roomService;
         }
     }
 }
