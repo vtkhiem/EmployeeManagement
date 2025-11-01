@@ -48,6 +48,15 @@ namespace EmployeeManagement.UI
                     // === Đăng ký Services (BLL) ===
                     // (Sẽ thêm sau)
                     services.AddScoped<IEmployeeService, EmployeeService>();
+                    services.AddScoped<IAdminService, AdminService>();
+                    services.AddScoped<IDepartmentService, DepartmentService>();
+                    services.AddScoped<IAttendanceService, AttendanceService>();
+                    services.AddScoped<IActivityLogService, ActivityLogService>();
+                    services.AddScoped<ILeaveService, LeaveService>();
+                    services.AddScoped<IPayrollHistoryService, PayrollHistoryService>();
+                    services.AddScoped<IPositionService, PositionService>();
+                    services.AddScoped<INotificationService, NotificationService>();
+                    
 
                     // === Đăng ký Cửa sổ (UI) ===
                     services.AddTransient<MainWindow>();

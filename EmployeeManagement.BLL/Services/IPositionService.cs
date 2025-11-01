@@ -7,7 +7,7 @@ using EmployeeManagement.DAL.Models;
 
 namespace EmployeeManagement.BLL.Services
 {
-    public interface IPosittionService
+    public interface IPositionService
     {
         IEnumerable<Position> GetAllPositions();
         Position? GetPositionById(int id);
