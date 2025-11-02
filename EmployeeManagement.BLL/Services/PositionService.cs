@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.DAL.Models;
+using EmployeeManagement.DAL.Repositories;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class PositionService : IPositionService
 
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public PositionService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public void AddPosition(Position position)
         {
             throw new NotImplementedException();

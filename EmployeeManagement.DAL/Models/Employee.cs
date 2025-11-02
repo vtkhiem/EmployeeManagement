@@ -35,6 +35,8 @@ public partial class Employee
 
     public int? PositionId { get; set; }
 
+    public string? PasswordHash { get; set; }
+
     public virtual ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
 
     public virtual Department? Department { get; set; }

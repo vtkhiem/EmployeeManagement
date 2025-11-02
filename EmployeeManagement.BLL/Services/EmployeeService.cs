@@ -51,6 +51,41 @@ namespace EmployeeManagement.BLL.Services
 
         }
 
+        public Employee? LoginAsEmployee(string email, string password)
+        {
+            // Bước 1: Tìm admin bằng username
+            var employee = _unitOfWork.EmployeeRepository
+                                   .Find(a => a.Email == email && a.EmploymentStatus == "Active")
+                                   .FirstOrDefault();
+
+            // Nếu không tìm thấy admin
+            if (employee == null)
+            {
+                return null;
+            }
+
+            // Bước 2: Xác thực mật khẩu
+            bool isPasswordValid;
+            try
+            {
+                isPasswordValid = BCrypt.Net.BCrypt.Verify(password, employee.PasswordHash);
+            }
+            catch (Exception)
+            {
+                // Lỗi nếu hash trong DB bị hỏng
+                return null;
+            }
+
+            if (isPasswordValid)
+            {
+                // Mật khẩu đúng
+                return employee;
+            }
+
+            // Mật khẩu sai
+            return null;
+        }
+
         public IEnumerable<Employee> SearchEmployeesByName(string name)
         {
           

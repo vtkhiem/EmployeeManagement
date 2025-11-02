@@ -20,5 +20,7 @@ namespace EmployeeManagement.BLL.Services
         void DeleteEmployee(int id);
 
         IEnumerable<Employee> SearchEmployeesByName(string keyword);
+
+        Employee? LoginAsEmployee(string email, string password);
     }
 }

@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.DAL.Models;
+using EmployeeManagement.DAL.Repositories;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class LeaveService : ILeaveService
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public LeaveService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public void AddLeaveType(LeaveType leaveType)
         {
             throw new NotImplementedException();

@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.DAL.Models;
+using EmployeeManagement.DAL.Repositories;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class AttendanceService : IAttendanceService
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AttendanceService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public void AddOrUpdateManualAttendance(Attendance attendance)
         {
             throw new NotImplementedException();
