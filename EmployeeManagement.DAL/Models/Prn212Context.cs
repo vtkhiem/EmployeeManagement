@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace EmployeeManagement.DAL.Models;
 
@@ -37,9 +36,6 @@ public partial class Prn212Context : DbContext
     public virtual DbSet<PayrollHistory> PayrollHistories { get; set; }
 
     public virtual DbSet<Position> Positions { get; set; }
-
-  
-
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

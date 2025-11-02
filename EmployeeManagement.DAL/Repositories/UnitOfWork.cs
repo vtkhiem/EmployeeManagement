@@ -10,7 +10,7 @@ namespace EmployeeManagement.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly Prn212Context _context;
-        public IRepository<Admin> AdminReposotpry { get; private set; }
+        public IRepository<Admin> AdminRepository { get; private set; }
         public IRepository<Employee> EmployeeRepository { get; private set; }
         public IRepository<LeaveRequest> LeaveRequestRepository { get; private set; }
         public IRepository<Notification> NotificationRepository { get; private set; }
@@ -26,7 +26,7 @@ namespace EmployeeManagement.DAL.Repositories
         {
             _context = context;
 
-            AdminReposotpry = new GenericRepository<Admin>(_context);
+            AdminRepository = new GenericRepository<Admin>(_context);
             EmployeeRepository = new GenericRepository<Employee>(_context);
             LeaveRequestRepository = new GenericRepository<LeaveRequest>(_context);
             NotificationRepository = new GenericRepository<Notification>(_context);

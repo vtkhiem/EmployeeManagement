@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.DAL.Models;
+using EmployeeManagement.DAL.Repositories;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class DepartmentService : IDepartmentService
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public DepartmentService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public void AddDepartment(Department department)
         {
             throw new NotImplementedException();

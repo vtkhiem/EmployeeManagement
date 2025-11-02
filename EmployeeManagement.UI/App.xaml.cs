@@ -20,6 +20,7 @@ namespace EmployeeManagement.UI
     {
         public static IHost? AppHost { get; private set; }
         public static IConfiguration? Configuration { get; private set; } // Thêm dòng này
+      
 
         public App()
         {
@@ -60,6 +61,7 @@ namespace EmployeeManagement.UI
 
                     // === Đăng ký Cửa sổ (UI) ===
                     services.AddTransient<MainWindow>();
+                    services.AddTransient<LoginWindow>();
                 })
                 .Build();
         }
@@ -71,7 +73,7 @@ namespace EmployeeManagement.UI
 
             // Lấy MainWindow TỪ BỘ CHỨA DI
             // (DI sẽ tự động inject các service nếu MainWindow cần)
-            var startupForm = AppHost.Services.GetRequiredService<MainWindow>();
+            var startupForm = AppHost.Services.GetRequiredService<LoginWindow>();
 
             // Hiển thị cửa sổ
             startupForm.Show();

@@ -9,7 +9,7 @@ namespace EmployeeManagement.DAL.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Admin> AdminReposotpry { get; }
+        IRepository<Admin> AdminRepository { get; }
         IRepository<Employee> EmployeeRepository { get; }
         IRepository<LeaveRequest> LeaveRequestRepository { get; }
         IRepository<Notification> NotificationRepository { get; }
