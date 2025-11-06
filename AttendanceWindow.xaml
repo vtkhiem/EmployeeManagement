@@ -1,0 +1,165 @@
+<Window x:Class="EmployeeManagement.UI.AttendanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý Chấm công" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    
+    <Window.Resources>
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2980B9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="QUẢN LÝ CHẤM CÔNG" 
+                   Style="{StaticResource HeaderTextStyle}"
+                   HorizontalAlignment="Center" FontSize="24"/>
+
+        <!-- Chấm công hàng ngày -->
+        <GroupBox Grid.Row="1" Header="Chấm công hàng ngày" 
+                  Margin="0,10,0,20" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Thông tin nhân viên -->
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
+                           Margin="0,0,0,15">
+                    <TextBlock Text="Nhân viên: " FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtEmployeeName" Text="[Tên nhân viên]" 
+                              FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
+                    <TextBlock Text=" | Ngày: " FontWeight="SemiBold" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtCurrentDate" FontWeight="Bold" 
+                              Foreground="#2C3E50" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Buttons chấm công -->
+                <Button Grid.Row="1" Grid.Column="0" x:Name="btnCheckIn" 
+                       Content="Chấm công vào" Style="{StaticResource ButtonStyle}"
+                       Background="#27AE60" Click="BtnCheckIn_Click"/>
+                
+                <Button Grid.Row="1" Grid.Column="1" x:Name="btnCheckOut" 
+                       Content="Chấm công ra" Style="{StaticResource ButtonStyle}"
+                       Background="#E74C3C" Click="BtnCheckOut_Click"/>
+                
+                <Button Grid.Row="1" Grid.Column="2" x:Name="btnBreak" 
+                       Content="Nghỉ giải lao" Style="{StaticResource ButtonStyle}"
+                       Background="#F39C12" Click="BtnBreak_Click"/>
+
+                <!-- Thời gian hiện tại -->
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" 
+                           HorizontalAlignment="Center" Margin="0,15,0,0">
+                    <TextBlock Text="Thời gian hiện tại: " FontWeight="SemiBold"/>
+                    <TextBlock x:Name="txtCurrentTime" FontWeight="Bold" 
+                              Foreground="#E74C3C" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Lịch sử chấm công -->
+        <GroupBox Grid.Row="2" Header="Lịch sử chấm công" Padding="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Bộ lọc -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Từ ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <DatePicker x:Name="dpFromDate" Width="120" Margin="0,0,15,0"/>
+                    <TextBlock Text="Đến ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <DatePicker x:Name="dpToDate" Width="120" Margin="0,0,15,0"/>
+                    <Button x:Name="btnFilter" Content="Lọc" Style="{StaticResource ButtonStyle}"
+                           Background="#9B59B6" Click="BtnFilter_Click"/>
+                    <Button x:Name="btnExport" Content="Xuất báo cáo" Style="{StaticResource ButtonStyle}"
+                           Background="#34495E" Click="BtnExport_Click"/>
+                </StackPanel>
+
+                <!-- DataGrid lịch sử -->
+                <DataGrid Grid.Row="1" x:Name="dgAttendanceHistory" 
+                         AutoGenerateColumns="False" 
+                         CanUserAddRows="False"
+                         CanUserDeleteRows="False"
+                         IsReadOnly="True"
+                         GridLinesVisibility="Horizontal"
+                         HeadersVisibility="Column"
+                         AlternatingRowBackground="#F8F9FA">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Ngày" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" Width="100"/>
+                        <DataGridTextColumn Header="Giờ vào" Binding="{Binding CheckInTime, StringFormat=HH:mm:ss}" Width="100"/>
+                        <DataGridTextColumn Header="Giờ ra" Binding="{Binding CheckOutTime, StringFormat=HH:mm:ss}" Width="100"/>
+                        <DataGridTextColumn Header="Tổng giờ làm" Binding="{Binding TotalHours}" Width="120"/>
+                        <DataGridTextColumn Header="Giờ nghỉ" Binding="{Binding BreakTime}" Width="100"/>
+                        <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="120"/>
+                        <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Thống kê -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                           HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <TextBlock Text="Tổng ngày công: " FontWeight="SemiBold"/>
+                    <TextBlock x:Name="txtTotalDays" FontWeight="Bold" Foreground="#27AE60" Margin="0,0,20,0"/>
+                    <TextBlock Text="Tổng giờ làm: " FontWeight="SemiBold"/>
+                    <TextBlock x:Name="txtTotalHours" FontWeight="Bold" Foreground="#3498DB"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Footer buttons -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" 
+                   HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="btnClose" Content="Đóng" Style="{StaticResource ButtonStyle}"
+                   Background="#95A5A6" Click="BtnClose_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
