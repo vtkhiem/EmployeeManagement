@@ -1,0 +1,266 @@
+<Window x:Class="EmployeeManagement.UI.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gửi Thông báo" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    
+    <Window.Resources>
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2980B9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TabItemStyle" TargetType="TabItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,10"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="HỆ THỐNG THÔNG BÁO NỘI BỘ" 
+                   Style="{StaticResource HeaderTextStyle}"
+                   HorizontalAlignment="Center" FontSize="24"/>
+
+        <!-- Tab Control -->
+        <TabControl Grid.Row="1" Margin="0,20,0,0">
+            
+            <!-- Tab Gửi thông báo -->
+            <TabItem Header="Gửi thông báo mới" Style="{StaticResource TabItemStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Thông tin người gửi -->
+                    <GroupBox Grid.Row="0" Header="Thông tin người gửi" Margin="0,0,0,15" Padding="15">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Người gửi: " FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtSenderName" Text="[Tên người gửi]" 
+                                      FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
+                            <TextBlock Text=" | Phòng ban: " FontWeight="SemiBold" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtSenderDepartment" Text="[Phòng ban]" 
+                                      FontWeight="Bold" Foreground="#2C3E50" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Thông tin thông báo -->
+                    <GroupBox Grid.Row="1" Header="Thông tin thông báo" Margin="0,0,0,15" Padding="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Tiêu đề -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Tiêu đề:" 
+                                      VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTitle" 
+                                    Height="30" Margin="0,0,15,0"/>
+
+                            <!-- Mức độ ưu tiên -->
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Mức độ:" 
+                                      VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                            <ComboBox Grid.Row="0" Grid.Column="3" x:Name="cbPriority" Height="30">
+                                <ComboBoxItem Content="Thông thường" IsSelected="True"/>
+                                <ComboBoxItem Content="Quan trọng"/>
+                                <ComboBoxItem Content="Khẩn cấp"/>
+                            </ComboBox>
+
+                            <!-- Người nhận -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Người nhận:" 
+                                      VerticalAlignment="Top" Margin="0,15,10,0" FontWeight="SemiBold"/>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,15,0,0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <RadioButton x:Name="rbAllEmployees" Content="Tất cả nhân viên" 
+                                               IsChecked="True" Margin="0,0,20,0"/>
+                                    <RadioButton x:Name="rbDepartment" Content="Theo phòng ban" Margin="0,0,20,0"/>
+                                    <RadioButton x:Name="rbSpecific" Content="Chọn cụ thể"/>
+                                </StackPanel>
+                                
+                                <StackPanel x:Name="pnlDepartment" Orientation="Horizontal" 
+                                           Visibility="Collapsed" Margin="0,0,0,10">
+                                    <TextBlock Text="Phòng ban:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <ComboBox x:Name="cbDepartment" Width="200">
+                                        <ComboBoxItem Content="Phòng Nhân sự"/>
+                                        <ComboBoxItem Content="Phòng Kế toán"/>
+                                        <ComboBoxItem Content="Phòng IT"/>
+                                        <ComboBoxItem Content="Phòng Marketing"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel x:Name="pnlSpecific" Visibility="Collapsed">
+                                    <ListBox x:Name="lbEmployees" Height="100" SelectionMode="Multiple">
+                                        <ListBoxItem Content="Nguyễn Văn A - Phòng IT"/>
+                                        <ListBoxItem Content="Trần Thị B - Phòng Nhân sự"/>
+                                        <ListBoxItem Content="Lê Văn C - Phòng Kế toán"/>
+                                        <ListBoxItem Content="Phạm Thị D - Phòng Marketing"/>
+                                    </ListBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- Nội dung thông báo -->
+                    <GroupBox Grid.Row="2" Header="Nội dung thông báo" Margin="0,0,0,15" Padding="15">
+                        <TextBox x:Name="txtContent" Height="150" 
+                                TextWrapping="Wrap" AcceptsReturn="True" 
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalContentAlignment="Top"/>
+                    </GroupBox>
+
+                    <!-- File đính kèm -->
+                    <GroupBox Grid.Row="3" Header="File đính kèm (tùy chọn)" Padding="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                                <Button x:Name="btnAttachFile" Content="Chọn file" 
+                                       Style="{StaticResource ButtonStyle}" 
+                                       Background="#16A085" Click="BtnAttachFile_Click"/>
+                                <Button x:Name="btnRemoveFile" Content="Xóa file" 
+                                       Style="{StaticResource ButtonStyle}" 
+                                       Background="#E74C3C" Click="BtnRemoveFile_Click"/>
+                            </StackPanel>
+
+                            <ListBox Grid.Row="1" x:Name="lbAttachedFiles" Height="80">
+                                <!-- Danh sách file đính kèm sẽ hiển thị ở đây -->
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" 
+                               HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button x:Name="btnSend" Content="Gửi thông báo" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#27AE60" Click="BtnSend_Click"/>
+                        <Button x:Name="btnSaveDraft" Content="Lưu nháp" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#F39C12" Click="BtnSaveDraft_Click"/>
+                        <Button x:Name="btnClear" Content="Xóa form" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#95A5A6" Click="BtnClear_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab Danh sách thông báo -->
+            <TabItem Header="Danh sách thông báo" Style="{StaticResource TabItemStyle}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Bộ lọc -->
+                    <GroupBox Grid.Row="0" Header="Bộ lọc" Margin="0,0,0,15" Padding="15">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Từ ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <DatePicker x:Name="dpFromDateNotif" Width="120" Margin="0,0,15,0"/>
+                            <TextBlock Text="Đến ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <DatePicker x:Name="dpToDateNotif" Width="120" Margin="0,0,15,0"/>
+                            <TextBlock Text="Trạng thái:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ComboBox x:Name="cbStatusFilter" Width="120" Margin="0,0,15,0">
+                                <ComboBoxItem Content="Tất cả" IsSelected="True"/>
+                                <ComboBoxItem Content="Đã gửi"/>
+                                <ComboBoxItem Content="Nháp"/>
+                            </ComboBox>
+                            <Button x:Name="btnFilterNotif" Content="Lọc" 
+                                   Style="{StaticResource ButtonStyle}"
+                                   Background="#9B59B6" Click="BtnFilterNotif_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- DataGrid thông báo -->
+                    <DataGrid Grid.Row="1" x:Name="dgNotifications" 
+                             AutoGenerateColumns="False" 
+                             CanUserAddRows="False"
+                             CanUserDeleteRows="False"
+                             IsReadOnly="True"
+                             GridLinesVisibility="Horizontal"
+                             HeadersVisibility="Column"
+                             AlternatingRowBackground="#F8F9FA"
+                             SelectionMode="Single"
+                             MouseDoubleClick="DgNotifications_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Tiêu đề" Binding="{Binding Title}" Width="200"/>
+                            <DataGridTextColumn Header="Người gửi" Binding="{Binding Sender}" Width="120"/>
+                            <DataGridTextColumn Header="Người nhận" Binding="{Binding Recipients}" Width="150"/>
+                            <DataGridTextColumn Header="Mức độ" Binding="{Binding Priority}" Width="100"/>
+                            <DataGridTextColumn Header="Ngày gửi" Binding="{Binding SentDate, StringFormat=dd/MM/yyyy HH:mm}" Width="130"/>
+                            <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
+                            <DataGridTextColumn Header="Đã đọc" Binding="{Binding ReadCount}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                               HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button x:Name="btnViewDetail" Content="Xem chi tiết" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#3498DB" Click="BtnViewDetail_Click"/>
+                        <Button x:Name="btnDeleteNotif" Content="Xóa thông báo" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#E74C3C" Click="BtnDeleteNotif_Click"/>
+                        <Button x:Name="btnRefresh" Content="Làm mới" 
+                               Style="{StaticResource ButtonStyle}"
+                               Background="#16A085" Click="BtnRefresh_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
