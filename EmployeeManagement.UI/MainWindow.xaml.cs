@@ -40,8 +40,8 @@ namespace EmployeeManagement.UI
             if (result == MessageBoxResult.Yes)
             {
                 // Mở lại màn hình đăng nhập
-                var loginWindow = _serviceProvider.GetService(typeof(LoginWindow)) as LoginWindow;
-                loginWindow?.Show();
+                var loginWindow = _serviceProvider.GetRequiredService<LoginWindow>();
+                loginWindow.Show();
                 this.Close();
             }
         }
@@ -55,8 +55,8 @@ namespace EmployeeManagement.UI
 
         private void DepartmentManagementButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Chức năng Quản lý phòng ban đang được phát triển...", 
-                "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            var departmentWindow = _serviceProvider.GetRequiredService<DepartmentManagementWindow>();
+            departmentWindow.Show();
         }
 
         private void AttendanceManagementButton_Click(object sender, RoutedEventArgs e)

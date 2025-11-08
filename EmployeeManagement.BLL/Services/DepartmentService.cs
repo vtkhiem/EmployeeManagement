@@ -15,34 +15,54 @@ namespace EmployeeManagement.BLL.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddDepartment(Department department)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteDepartment(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Department> GetAllDepartments()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.DepartmentRepository.GetAll();
         }
 
         public Department? GetDepartmentById(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.DepartmentRepository.GetById(id);
         }
 
-        public IEnumerable<Employee> GetEmployeesInDepartment(int departmentId)
+        public void AddDepartment(Department department)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(department.DepartmentName))
+                throw new ArgumentException("Tên phòng ban không được để trống");
+
+            _unitOfWork.DepartmentRepository.Add(department);
+            _unitOfWork.Save();
         }
 
         public void UpdateDepartment(Department department)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(department.DepartmentName))
+                throw new ArgumentException("Tên phòng ban không được để trống");
+
+            _unitOfWork.DepartmentRepository.Update(department);
+            _unitOfWork.Save();
+        }
+
+        public void DeleteDepartment(int id)
+        {
+            var department = _unitOfWork.DepartmentRepository.GetById(id);
+            if (department == null)
+                throw new ArgumentException("Không tìm thấy phòng ban");
+
+            // Kiểm tra xem có nhân viên nào trong phòng ban không
+            var employees = GetEmployeesInDepartment(id);
+            if (employees.Any())
+                throw new InvalidOperationException("Không thể xóa phòng ban có nhân viên");
+
+            _unitOfWork.DepartmentRepository.Delete(id);
+            _unitOfWork.Save();
+        }
+
+        public IEnumerable<Employee> GetEmployeesInDepartment(int departmentId)
+        {
+            return _unitOfWork.EmployeeRepository
+                .Find(e => e.DepartmentId == departmentId);
         }
     }
 }
