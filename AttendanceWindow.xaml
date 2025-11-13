@@ -87,11 +87,11 @@
                 
                 <Button Grid.Row="1" Grid.Column="1" x:Name="btnCheckOut" 
                        Content="Chấm công ra" Style="{StaticResource ButtonStyle}"
-                       Background="#E74C3C" Click="BtnCheckOut_Click"/>
+                       Background="#E74C3C" Click="BtnCheckOut_Click" IsEnabled="False"/>
                 
-                <Button Grid.Row="1" Grid.Column="2" x:Name="btnBreak" 
-                       Content="Nghỉ giải lao" Style="{StaticResource ButtonStyle}"
-                       Background="#F39C12" Click="BtnBreak_Click"/>
+                <Button Grid.Row="1" Grid.Column="2" x:Name="btnRefresh" 
+                       Content="Làm mới" Style="{StaticResource ButtonStyle}"
+                       Background="#16A085" Click="BtnRefresh_Click"/>
 
                 <!-- Thời gian hiện tại -->
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" 
@@ -134,11 +134,10 @@
                          HeadersVisibility="Column"
                          AlternatingRowBackground="#F8F9FA">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Ngày" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" Width="100"/>
-                        <DataGridTextColumn Header="Giờ vào" Binding="{Binding CheckInTime, StringFormat=HH:mm:ss}" Width="100"/>
-                        <DataGridTextColumn Header="Giờ ra" Binding="{Binding CheckOutTime, StringFormat=HH:mm:ss}" Width="100"/>
+                        <DataGridTextColumn Header="Ngày" Binding="{Binding Date, StringFormat=dd/MM/yyyy}" Width="120"/>
+                        <DataGridTextColumn Header="Giờ vào" Binding="{Binding CheckInTimeDisplay}" Width="100"/>
+                        <DataGridTextColumn Header="Giờ ra" Binding="{Binding CheckOutTimeDisplay}" Width="100"/>
                         <DataGridTextColumn Header="Tổng giờ làm" Binding="{Binding TotalHours}" Width="120"/>
-                        <DataGridTextColumn Header="Giờ nghỉ" Binding="{Binding BreakTime}" Width="100"/>
                         <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="120"/>
                         <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
                     </DataGrid.Columns>
