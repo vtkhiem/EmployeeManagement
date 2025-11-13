@@ -62,6 +62,8 @@ namespace EmployeeManagement.UI
                     // === Đăng ký Cửa sổ (UI) ===
                     services.AddTransient<MainWindow>();
                     services.AddTransient<LoginWindow>();
+                    services.AddTransient<AttendanceWindow>();
+                    services.AddTransient<NotificationWindow>();
                 })
                 .Build();
         }
@@ -73,7 +75,7 @@ namespace EmployeeManagement.UI
 
             // Lấy MainWindow TỪ BỘ CHỨA DI
             // (DI sẽ tự động inject các service nếu MainWindow cần)
-            var startupForm = AppHost.Services.GetRequiredService<LoginWindow>();
+            var startupForm = AppHost.Services.GetRequiredService<NotificationWindow>();
 
             // Hiển thị cửa sổ
             startupForm.Show();
