@@ -25,10 +25,6 @@ namespace EmployeeManagement.UI
             txtSenderName.Text = "Nguyễn Văn Admin"; // Placeholder
             txtSenderDepartment.Text = "Phòng Nhân sự"; // Placeholder
 
-            // Thiết lập ngày mặc định cho bộ lọc
-            dpFromDateNotif.SelectedDate = DateTime.Now.AddDays(-30);
-            dpToDateNotif.SelectedDate = DateTime.Now;
-
             // Khởi tạo danh sách file đính kèm
             attachedFiles = new List<string>();
 
@@ -192,13 +188,6 @@ namespace EmployeeManagement.UI
             {
                 ClearForm();
             }
-        }
-
-        private void BtnFilterNotif_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO: Lọc thông báo theo điều kiện
-            MessageBox.Show("Chức năng lọc đang được phát triển!", "Thông báo", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BtnViewDetail_Click(object sender, RoutedEventArgs e)

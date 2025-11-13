@@ -63,14 +63,15 @@
             
             <!-- Tab Gửi thông báo -->
             <TabItem Header="Gửi thông báo mới" Style="{StaticResource TabItemStyle}">
-                <Grid Margin="20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
                     <!-- Thông tin người gửi -->
                     <GroupBox Grid.Row="0" Header="Thông tin người gửi" Margin="0,0,0,15" Padding="15">
@@ -150,18 +151,18 @@
 
                     <!-- Nội dung thông báo -->
                     <GroupBox Grid.Row="2" Header="Nội dung thông báo" Margin="0,0,0,15" Padding="15">
-                        <TextBox x:Name="txtContent" Height="150" 
+                        <TextBox x:Name="txtContent" Height="120" 
                                 TextWrapping="Wrap" AcceptsReturn="True" 
                                 VerticalScrollBarVisibility="Auto"
                                 VerticalContentAlignment="Top"/>
                     </GroupBox>
 
                     <!-- File đính kèm -->
-                    <GroupBox Grid.Row="3" Header="File đính kèm (tùy chọn)" Padding="15">
+                    <GroupBox Grid.Row="3" Header="File đính kèm (tùy chọn)" Padding="15" Margin="0,0,0,15">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
@@ -173,7 +174,7 @@
                                        Background="#E74C3C" Click="BtnRemoveFile_Click"/>
                             </StackPanel>
 
-                            <ListBox Grid.Row="1" x:Name="lbAttachedFiles" Height="80">
+                            <ListBox Grid.Row="1" x:Name="lbAttachedFiles" Height="60">
                                 <!-- Danh sách file đính kèm sẽ hiển thị ở đây -->
                             </ListBox>
                         </Grid>
@@ -181,7 +182,7 @@
 
                     <!-- Buttons -->
                     <StackPanel Grid.Row="4" Orientation="Horizontal" 
-                               HorizontalAlignment="Right" Margin="0,15,0,0">
+                               HorizontalAlignment="Right" Margin="0,0,0,0">
                         <Button x:Name="btnSend" Content="Gửi thông báo" 
                                Style="{StaticResource ButtonStyle}"
                                Background="#27AE60" Click="BtnSend_Click"/>
@@ -192,39 +193,20 @@
                                Style="{StaticResource ButtonStyle}"
                                Background="#95A5A6" Click="BtnClear_Click"/>
                     </StackPanel>
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
             <!-- Tab Danh sách thông báo -->
             <TabItem Header="Danh sách thông báo" Style="{StaticResource TabItemStyle}">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Bộ lọc -->
-                    <GroupBox Grid.Row="0" Header="Bộ lọc" Margin="0,0,0,15" Padding="15">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Từ ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                            <DatePicker x:Name="dpFromDateNotif" Width="120" Margin="0,0,15,0"/>
-                            <TextBlock Text="Đến ngày:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                            <DatePicker x:Name="dpToDateNotif" Width="120" Margin="0,0,15,0"/>
-                            <TextBlock Text="Trạng thái:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                            <ComboBox x:Name="cbStatusFilter" Width="120" Margin="0,0,15,0">
-                                <ComboBoxItem Content="Tất cả" IsSelected="True"/>
-                                <ComboBoxItem Content="Đã gửi"/>
-                                <ComboBoxItem Content="Nháp"/>
-                            </ComboBox>
-                            <Button x:Name="btnFilterNotif" Content="Lọc" 
-                                   Style="{StaticResource ButtonStyle}"
-                                   Background="#9B59B6" Click="BtnFilterNotif_Click"/>
-                        </StackPanel>
-                    </GroupBox>
-
                     <!-- DataGrid thông báo -->
-                    <DataGrid Grid.Row="1" x:Name="dgNotifications" 
+                    <DataGrid Grid.Row="0" x:Name="dgNotifications" 
                              AutoGenerateColumns="False" 
                              CanUserAddRows="False"
                              CanUserDeleteRows="False"
@@ -247,7 +229,7 @@
                     </DataGrid>
 
                     <!-- Buttons -->
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" 
                                HorizontalAlignment="Right" Margin="0,15,0,0">
                         <Button x:Name="btnViewDetail" Content="Xem chi tiết" 
                                Style="{StaticResource ButtonStyle}"
