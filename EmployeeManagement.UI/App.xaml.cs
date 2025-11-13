@@ -63,6 +63,8 @@ namespace EmployeeManagement.UI
                     services.AddTransient<MainWindow>();
                     services.AddTransient<LoginWindow>();
                     services.AddTransient<DepartmentManagementWindow>();
+                    services.AddTransient<EmployeeManagementWindow>();
+                    services.AddTransient<EmployeeDetailDialog>();
                 })
                 .Build();
         }

@@ -55,7 +55,7 @@ namespace EmployeeManagement.UI
                 txtDepartmentId.Text = department.DepartmentId.ToString();
                 txtDepartmentName.Text = department.DepartmentName;
                 txtEmployeeCount.Text = department.Employees.Count.ToString();
-                
+
                 // Load danh sách nhân viên trong phòng ban
                 LoadEmployeesInDepartment(department.DepartmentId);
             }
@@ -68,6 +68,7 @@ namespace EmployeeManagement.UI
             {
                 var employees = _departmentService.GetEmployeesInDepartment(departmentId).ToList();
                 dgEmployeesInDepartment.ItemsSource = employees;
+                LoadDepartments(); // Cập nhật lại danh sách phòng ban để hiển thị số lượng nhân viên đúng
             }
             catch (Exception ex)
             {

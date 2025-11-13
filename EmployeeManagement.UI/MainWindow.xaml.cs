@@ -46,11 +46,11 @@ namespace EmployeeManagement.UI
             }
         }
 
-        // Các sự kiện cho các nút quản lý (mockup - chưa hoạt động)
+        // Các sự kiện cho các nút quản lý
         private void EmployeeManagementButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Chức năng Quản lý nhân viên đang được phát triển...", 
-                "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            var employeeWindow = _serviceProvider.GetRequiredService<EmployeeManagementWindow>();
+            employeeWindow.Show();
         }
 
         private void DepartmentManagementButton_Click(object sender, RoutedEventArgs e)

@@ -102,5 +102,42 @@ namespace EmployeeManagement.BLL.Services
             _unitOfWork.Save();
 
         }
+
+        public IEnumerable<Employee> FilterEmployees(int? departmentId, string? gender, decimal? minSalary, decimal? maxSalary, DateOnly? fromDate, DateOnly? toDate)
+        {
+            var employees = _unitOfWork.EmployeeRepository.GetAll().AsQueryable();
+
+            if (departmentId.HasValue && departmentId.Value > 0)
+            {
+                employees = employees.Where(e => e.DepartmentId == departmentId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(gender))
+            {
+                employees = employees.Where(e => e.Gender == gender);
+            }
+
+            if (minSalary.HasValue)
+            {
+                employees = employees.Where(e => e.BaseSalary >= minSalary.Value);
+            }
+
+            if (maxSalary.HasValue)
+            {
+                employees = employees.Where(e => e.BaseSalary <= maxSalary.Value);
+            }
+
+            if (fromDate.HasValue)
+            {
+                employees = employees.Where(e => e.HireDate >= fromDate.Value);
+            }
+
+            if (toDate.HasValue)
+            {
+                employees = employees.Where(e => e.HireDate <= toDate.Value);
+            }
+
+            return employees.OrderBy(e => e.FullName).ToList();
+        }
     }
 }

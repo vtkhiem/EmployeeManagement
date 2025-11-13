@@ -1,0 +1,243 @@
+<Window x:Class="EmployeeManagement.UI.EmployeeManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Quản lý nhân viên" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1565C0">
+            <Grid Margin="20,0">
+                <TextBlock Text="QUẢN LÝ NHÂN VIÊN" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           VerticalAlignment="Center"/>
+                <Button Content="← Quay lại" 
+                        Click="BackButton_Click"
+                        HorizontalAlignment="Right"
+                        Background="#F44336" 
+                        Foreground="White" 
+                        Padding="15,8" 
+                        BorderThickness="0" 
+                        Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+        
+        <!-- Search and Filter Panel -->
+        <Border Grid.Row="1" Background="White" Padding="20" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <!-- Search Box -->
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBox x:Name="SearchTextBox" 
+                             Grid.Column="0"
+                             FontSize="14" 
+                             Padding="10"
+                             VerticalContentAlignment="Center"
+                             BorderBrush="#BDBDBD"
+                             BorderThickness="1">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <VisualBrush Stretch="None" AlignmentX="Left">
+                                                    <VisualBrush.Visual>
+                                                        <TextBlock Text="🔍 Tìm kiếm theo tên nhân viên..." 
+                                                                   Foreground="#9E9E9E" 
+                                                                   Margin="10,0,0,0"/>
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    
+                    <Button Grid.Column="1" 
+                            Content="Tìm kiếm" 
+                            Click="SearchButton_Click"
+                            Style="{StaticResource ButtonStyle}"
+                            Margin="10,0,0,0"/>
+                </Grid>
+                
+                <!-- Filter Panel -->
+                <Expander Header="🔽 Bộ lọc nâng cao" IsExpanded="False" FontWeight="SemiBold">
+                    <Grid Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- Row 1 -->
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+                            <TextBlock Text="Phòng ban:" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="DepartmentFilterComboBox" 
+                                      DisplayMemberPath="DepartmentName"
+                                      SelectedValuePath="DepartmentId"
+                                      FontSize="14" Padding="8"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+                            <TextBlock Text="Giới tính:" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="GenderFilterComboBox" FontSize="14" Padding="8">
+                                <ComboBoxItem Content="Tất cả" IsSelected="True"/>
+                                <ComboBoxItem Content="Nam"/>
+                                <ComboBoxItem Content="Nữ"/>
+                                <ComboBoxItem Content="Khác"/>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="5">
+                            <TextBlock Text="Lương từ:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="MinSalaryTextBox" FontSize="14" Padding="8"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="0" Grid.Column="3" Margin="5">
+                            <TextBlock Text="Lương đến:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="MaxSalaryTextBox" FontSize="14" Padding="8"/>
+                        </StackPanel>
+                        
+                        <!-- Row 2 -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+                            <TextBlock Text="Ngày vào từ:" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="FromDatePicker" FontSize="14" Padding="8"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+                            <TextBlock Text="Ngày vào đến:" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="ToDatePicker" FontSize="14" Padding="8"/>
+                        </StackPanel>
+                        
+                        <!-- Filter Buttons -->
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" 
+                                    Orientation="Horizontal" 
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Bottom"
+                                    Margin="5">
+                            <Button Content="Áp dụng lọc" 
+                                    Click="ApplyFilterButton_Click"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Background="#4CAF50"/>
+                            <Button Content="Xóa lọc" 
+                                    Click="ClearFilterButton_Click"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Background="#757575"/>
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </Border>
+        
+        <!-- Employee List -->
+        <Border Grid.Row="2" Background="White" Margin="20">
+            <DataGrid x:Name="EmployeeDataGrid" 
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      AlternatingRowBackground="#F5F5F5"
+                      RowHeight="40"
+                      FontSize="13"
+                      MouseDoubleClick="EmployeeDataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding EmployeeId}" Width="60"/>
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding FullName}" Width="*" MinWidth="150"/>
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding DateOfBirth, StringFormat=dd/MM/yyyy}" Width="100"/>
+                    <DataGridTextColumn Header="Giới tính" Binding="{Binding Gender}" Width="80"/>
+                    <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" Width="120"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" MinWidth="180"/>
+                    <DataGridTextColumn Header="Phòng ban" Binding="{Binding Department.DepartmentName}" Width="*" MinWidth="120"/>
+                    <DataGridTextColumn Header="Chức vụ" Binding="{Binding Position.PositionName}" Width="*" MinWidth="120"/>
+                    <DataGridTextColumn Header="Lương" Binding="{Binding BaseSalary, StringFormat=N0}" Width="120"/>
+                    <DataGridTextColumn Header="Ngày vào" Binding="{Binding HireDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        
+        <!-- Action Buttons -->
+        <Border Grid.Row="3" Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center">
+                <Button Content="➕ Thêm nhân viên" 
+                        Click="AddEmployeeButton_Click"
+                        Style="{StaticResource ButtonStyle}"
+                        Background="#4CAF50"/>
+                <Button Content="✏️ Sửa thông tin" 
+                        Click="EditEmployeeButton_Click"
+                        Style="{StaticResource ButtonStyle}"/>
+                <Button Content="👁️ Xem chi tiết" 
+                        Click="ViewEmployeeButton_Click"
+                        Style="{StaticResource ButtonStyle}"
+                        Background="#FF9800"/>
+                <Button Content="🗑️ Xóa nhân viên" 
+                        Click="DeleteEmployeeButton_Click"
+                        Style="{StaticResource ButtonStyle}"
+                        Background="#F44336"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

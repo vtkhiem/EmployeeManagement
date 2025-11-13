@@ -22,5 +22,7 @@ namespace EmployeeManagement.BLL.Services
         IEnumerable<Employee> SearchEmployeesByName(string keyword);
 
         Employee? LoginAsEmployee(string email, string password);
+
+        IEnumerable<Employee> FilterEmployees(int? departmentId, string? gender, decimal? minSalary, decimal? maxSalary, DateOnly? fromDate, DateOnly? toDate);
     }
 }
