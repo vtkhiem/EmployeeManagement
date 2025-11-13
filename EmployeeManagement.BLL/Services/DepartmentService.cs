@@ -5,20 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.DAL.Models;
 using EmployeeManagement.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class DepartmentService : IDepartmentService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DepartmentService(IUnitOfWork unitOfWork)
+        private readonly Prn212Context _context;
+        
+        public DepartmentService(IUnitOfWork unitOfWork, Prn212Context context)
         {
             _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public IEnumerable<Department> GetAllDepartments()
         {
-            return _unitOfWork.DepartmentRepository.GetAll();
+            // Eager load Employees collection để hiển thị số nhân viên
+            return _context.Departments
+                .Include(d => d.Employees)
+                .ToList();
         }
 
         public Department? GetDepartmentById(int id)

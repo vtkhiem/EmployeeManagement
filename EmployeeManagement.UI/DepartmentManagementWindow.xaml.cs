@@ -38,6 +38,7 @@ namespace EmployeeManagement.UI
             {
                 var departments = _departmentService.GetAllDepartments().ToList();
                 dgDepartments.ItemsSource = departments;
+                
             }
             catch (Exception ex)
             {
@@ -55,10 +56,11 @@ namespace EmployeeManagement.UI
                 txtDepartmentId.Text = department.DepartmentId.ToString();
                 txtDepartmentName.Text = department.DepartmentName;
                 txtEmployeeCount.Text = department.Employees.Count.ToString();
-                
+
                 // Load danh sách nhân viên trong phòng ban
                 LoadEmployeesInDepartment(department.DepartmentId);
             }
+
         }
 
         // Load danh sách nhân viên trong phòng ban
