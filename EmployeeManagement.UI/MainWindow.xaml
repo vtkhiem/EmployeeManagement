@@ -5,8 +5,187 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmployeeManagement.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Admin Dashboard - Employee Management System" 
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    
+    <Window.Resources>
+        <!-- Style cho các nút dashboard -->
+        <Style x:Key="DashboardButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1565C0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="30,0">
+                    <TextBlock Text="ADMIN DASHBOARD" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Foreground="White"/>
+                    <TextBlock Text="Employee Management System" 
+                               FontSize="14" 
+                               Foreground="#E3F2FD" 
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" 
+                           Orientation="Horizontal" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,30,0">
+                    <TextBlock Text="👤 Admin" 
+                               FontSize="16" 
+                               Foreground="White" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,15,0"/>
+                    <Button Content="Đăng xuất" 
+                            Click="LogoutButton_Click"
+                            Background="#F44336" 
+                            Foreground="White" 
+                            Padding="15,8" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            FontSize="14">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                        CornerRadius="5">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Background="#F5F5F5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="40,30">
+                    <TextBlock Text="Quản lý hệ thống" 
+                               FontSize="22" 
+                               FontWeight="Bold" 
+                               Foreground="#333" 
+                               Margin="0,0,0,20"/>
+                    
+                    <!-- Grid chứa các nút quản lý -->
+                    <UniformGrid Columns="3" Rows="2">
+                        <!-- Quản lý nhân viên -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="EmployeeManagementButton_Click"
+                                Height="150">
+                            <StackPanel>
+                                <TextBlock Text="👥" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Quản lý nhân viên" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Quản lý phòng ban -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="DepartmentManagementButton_Click"
+                                Height="150"
+                                Background="#4CAF50">
+                            <StackPanel>
+                                <TextBlock Text="🏢" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Quản lý phòng ban" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Quản lý chấm công -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="AttendanceManagementButton_Click"
+                                Height="150"
+                                Background="#FF9800">
+                            <StackPanel>
+                                <TextBlock Text="📅" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Quản lý chấm công" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Quản lý lương -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="SalaryManagementButton_Click"
+                                Height="150"
+                                Background="#9C27B0">
+                            <StackPanel>
+                                <TextBlock Text="💰" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Quản lý lương" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Báo cáo thống kê -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="ReportsButton_Click"
+                                Height="150"
+                                Background="#00BCD4">
+                            <StackPanel>
+                                <TextBlock Text="📊" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Báo cáo thống kê" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <!-- Cài đặt hệ thống -->
+                        <Button Style="{StaticResource DashboardButtonStyle}"
+                                Click="SettingsButton_Click"
+                                Height="150"
+                                Background="#607D8B">
+                            <StackPanel>
+                                <TextBlock Text="⚙️" FontSize="40" Margin="0,0,0,10"/>
+                                <TextBlock Text="Cài đặt hệ thống" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#263238">
+            <TextBlock Text="© 2024 Employee Management System - Admin Panel" 
+                       Foreground="White" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       FontSize="12"/>
+        </Border>
     </Grid>
 </Window>
