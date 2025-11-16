@@ -210,7 +210,7 @@
                     <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" Width="120"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" MinWidth="180"/>
                     <DataGridTextColumn Header="Phòng ban" Binding="{Binding Department.DepartmentName}" Width="*" MinWidth="120"/>
-                    <DataGridTextColumn Header="Chức vụ" Binding="{Binding Position.PositionName}" Width="*" MinWidth="120"/>
+                    <DataGridTextColumn Header="Chức vụ" Binding="{Binding Position.PositionTitle}" Width="*" MinWidth="120"/>
                     <DataGridTextColumn Header="Lương" Binding="{Binding BaseSalary, StringFormat=N0}" Width="120"/>
                     <DataGridTextColumn Header="Ngày vào" Binding="{Binding HireDate, StringFormat=dd/MM/yyyy}" Width="100"/>
                 </DataGrid.Columns>

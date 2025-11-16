@@ -1,44 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using EmployeeManagement.DAL.Models;
 using EmployeeManagement.DAL.Repositories;
 
 namespace EmployeeManagement.BLL.Services
 {
     public class PositionService : IPositionService
-
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public PositionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-        public void AddPosition(Position position)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeletePosition(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Position> GetAllPositions()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.PositionRepository.GetAll();
         }
 
         public Position? GetPositionById(int id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.PositionRepository.GetById(id);
+        }
+
+        public void AddPosition(Position position)
+        {
+            if (position == null)
+                throw new ArgumentNullException(nameof(position));
+
+            _unitOfWork.PositionRepository.Add(position);
+            _unitOfWork.Save();
         }
 
         public void UpdatePosition(Position position)
         {
-            throw new NotImplementedException();
+            if (position == null)
+                throw new ArgumentNullException(nameof(position));
+
+            var existing = _unitOfWork.PositionRepository.GetById(position.PositionId);
+            if (existing == null)
+                throw new Exception("Position not found.");
+
+            _unitOfWork.PositionRepository.Update(position);
+            _unitOfWork.Save();
+        }
+
+        public void DeletePosition(int id)
+        {
+            var position = _unitOfWork.PositionRepository.GetById(id);
+            if (position == null)
+                throw new Exception("Position not found.");
+
+            _unitOfWork.PositionRepository.Delete(id); 
+            _unitOfWork.Save();
         }
     }
 }

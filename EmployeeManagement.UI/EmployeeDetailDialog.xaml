@@ -7,35 +7,34 @@
         Title="Chi tiết nhân viên" Height="650" Width="800"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
-    
+
     <Window.Resources>
         <Style x:Key="LabelStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0,0,0,5"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
-        
+
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="BorderBrush" Value="#BDBDBD"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
-        
+
         <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Padding" Value="8"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        
-        <!-- Header -->
+
         <Border Grid.Row="0" Background="#1565C0">
             <TextBlock x:Name="HeaderTextBlock" 
                        Text="THÊM NHÂN VIÊN MỚI" 
@@ -45,8 +44,7 @@
                        VerticalAlignment="Center" 
                        Margin="20,0"/>
         </Border>
-        
-        <!-- Content -->
+
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid Margin="20">
                 <Grid.ColumnDefinitions>
@@ -54,26 +52,23 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                
-                <!-- Left Panel - Form Fields -->
+
                 <StackPanel Grid.Column="0">
-                    <!-- Họ tên -->
                     <TextBlock Text="Họ tên *" Style="{StaticResource LabelStyle}"/>
                     <TextBox x:Name="FullNameTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,15"/>
-                    
-                    <!-- Ngày sinh và Giới tính -->
+
                     <Grid Margin="0,0,0,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Ngày sinh" Style="{StaticResource LabelStyle}"/>
                             <DatePicker x:Name="DateOfBirthPicker" FontSize="13" Padding="8"/>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Giới tính" Style="{StaticResource LabelStyle}"/>
                             <ComboBox x:Name="GenderComboBox" Style="{StaticResource ComboBoxStyle}">
@@ -83,38 +78,35 @@
                             </ComboBox>
                         </StackPanel>
                     </Grid>
-                    
-                    <!-- Địa chỉ -->
+
                     <TextBlock Text="Địa chỉ" Style="{StaticResource LabelStyle}"/>
                     <TextBox x:Name="AddressTextBox" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,15"/>
-                    
-                    <!-- Số điện thoại và Email -->
+
                     <Grid Margin="0,0,0,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Số điện thoại" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="PhoneNumberTextBox" Style="{StaticResource TextBoxStyle}"/>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Email *" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="EmailTextBox" Style="{StaticResource TextBoxStyle}"/>
                         </StackPanel>
                     </Grid>
-                    
-                    <!-- Phòng ban và Chức vụ -->
+
                     <Grid Margin="0,0,0,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Phòng ban" Style="{StaticResource LabelStyle}"/>
                             <ComboBox x:Name="DepartmentComboBox" 
@@ -122,44 +114,41 @@
                                       DisplayMemberPath="DepartmentName"
                                       SelectedValuePath="DepartmentId"/>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Chức vụ" Style="{StaticResource LabelStyle}"/>
                             <ComboBox x:Name="PositionComboBox" 
                                       Style="{StaticResource ComboBoxStyle}"
-                                      DisplayMemberPath="PositionName"
+                                      DisplayMemberPath="PositionTitle" 
                                       SelectedValuePath="PositionId"/>
                         </StackPanel>
                     </Grid>
-                    
-                    <!-- Lương và Ngày bắt đầu -->
+
                     <Grid Margin="0,0,0,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Mức lương (VNĐ)" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="BaseSalaryTextBox" Style="{StaticResource TextBoxStyle}"/>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Ngày bắt đầu *" Style="{StaticResource LabelStyle}"/>
                             <DatePicker x:Name="HireDatePicker" FontSize="13" Padding="8"/>
                         </StackPanel>
                     </Grid>
-                    
-                    <!-- Trạng thái -->
+
                     <TextBlock Text="Trạng thái" Style="{StaticResource LabelStyle}"/>
                     <ComboBox x:Name="EmploymentStatusComboBox" Style="{StaticResource ComboBoxStyle}" Margin="0,0,0,15">
                         <ComboBoxItem Content="Active" IsSelected="True"/>
-                        <ComboBoxItem Content="Inactive"/>
+                        <ComboBoxItem Content="Terminated"/> 👈 **Sử dụng Terminated như trong DB**
                         <ComboBoxItem Content="On Leave"/>
                     </ComboBox>
-                    
-                    <!-- Mật khẩu (chỉ hiện khi thêm mới) -->
+
                     <StackPanel x:Name="PasswordPanel" Visibility="Visible">
                         <TextBlock Text="Mật khẩu *" Style="{StaticResource LabelStyle}"/>
                         <PasswordBox x:Name="PasswordBox" FontSize="13" Padding="8" Margin="0,0,0,5"/>
@@ -169,8 +158,7 @@
                                    Margin="0,0,0,15"/>
                     </StackPanel>
                 </StackPanel>
-                
-                <!-- Right Panel - Profile Picture -->
+
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="Ảnh đại diện" Style="{StaticResource LabelStyle}"/>
                     <Border BorderBrush="#BDBDBD" 
@@ -192,7 +180,7 @@
                                    Visibility="Collapsed"/>
                         </Grid>
                     </Border>
-                    
+
                     <Button x:Name="UploadPhotoButton" 
                             Content="📷 Tải ảnh lên" 
                             Click="UploadPhotoButton_Click"
@@ -210,7 +198,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    
+
                     <Button x:Name="RemovePhotoButton" 
                             Content="🗑️ Xóa ảnh" 
                             Click="RemovePhotoButton_Click"
@@ -230,8 +218,7 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        
-        <!-- Footer Buttons -->
+
         <Border Grid.Row="2" Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center" 
@@ -255,7 +242,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
+
                 <Button Content="❌ Hủy" 
                         Click="CancelButton_Click"
                         Background="#757575" 
