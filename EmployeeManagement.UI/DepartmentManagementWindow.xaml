@@ -125,7 +125,7 @@
                                           Binding="{Binding DepartmentName}" 
                                           Width="*"/>
                         <DataGridTextColumn Header="Số NV" 
-                                          Binding="{Binding Employees}" 
+                                          Binding="{Binding Employees.Count}" 
                                           Width="70"/>
                     </DataGrid.Columns>
                 </DataGrid>
