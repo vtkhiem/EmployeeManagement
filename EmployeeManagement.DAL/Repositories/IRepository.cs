@@ -20,5 +20,8 @@ namespace EmployeeManagement.DAL.Repositories
         void Delete(int id);
 
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+
+        // Thêm phương thức hỗ trợ Eager Loading với Include
+        IEnumerable<T> GetAllWithIncludes(params Expression<Func<T, object>>[] includes);
     }
 }

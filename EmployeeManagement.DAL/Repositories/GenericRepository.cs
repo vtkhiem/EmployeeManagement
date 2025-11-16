@@ -48,5 +48,17 @@ namespace EmployeeManagement.DAL.Repositories
         {
            _dbSet.Update(entity);
         }
+
+        public IEnumerable<T> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _dbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToList();
+        }
     }
 }
